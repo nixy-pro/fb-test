@@ -1,0 +1,478 @@
+<html>
+ <head>
+  <title>
+   Facebook Clone
+  </title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #dddfe2;
+        }
+        .header .logo {
+            display: flex;
+            align-items: center;
+        }
+        .header .logo img {
+            height: 40px;
+        }
+        .header .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+            position: relative;
+        }
+        .header .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #dddfe2;
+            padding-left: 40px;
+        }
+        .header .search-bar .fa-search {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #606770;
+        }
+        .header .icons {
+            display: flex;
+            align-items: center;
+        }
+        .header .icons .icon {
+            margin-left: 20px;
+            font-size: 20px;
+            color: #606770;
+        }
+        .sidebar {
+            width: 300px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-right: 1px solid #dddfe2;
+            position: fixed;
+            top: 60px;
+            bottom: 0;
+            overflow-y: auto;
+        }
+        .sidebar .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            color: #1c1e21;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .sidebar .menu-item img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .sidebar .menu-item .fa {
+            margin-right: 10px;
+        }
+        .main-content {
+            margin-left: 320px;
+            padding: 20px;
+        }
+        .main-content .status-update {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .main-content .status-update img {
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .main-content .status-update input {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #dddfe2;
+        }
+        .main-content .status-update .actions {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+        .main-content .status-update .actions .action {
+            margin-left: 10px;
+            display: flex;
+            align-items: center;
+            color: #606770;
+            cursor: pointer;
+        }
+        .main-content .status-update .actions .action .fa {
+            margin-right: 5px;
+        }
+        .main-content .stories {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .main-content .stories .story {
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 120px;
+            margin-right: 10px;
+            position: relative;
+        }
+        .main-content .stories .story img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .main-content .stories .story .profile-pic {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            height: 40px;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+        }
+        .main-content .stories .story .name {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: #ffffff;
+            font-weight: bold;
+        }
+        .main-content .post {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .main-content .post .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .main-content .post .post-header img {
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .main-content .post .post-header .name {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        .main-content .post .post-header .time {
+            color: #606770;
+        }
+        .main-content .post .post-content {
+            margin-bottom: 10px;
+        }
+        .main-content .post .post-content img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .main-content .post .post-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .main-content .post .post-actions .action {
+            display: flex;
+            align-items: center;
+            color: #606770;
+            cursor: pointer;
+        }
+        .main-content .post .post-actions .action .fa {
+            margin-right: 5px;
+        }
+        .right-sidebar {
+            width: 300px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-left: 1px solid #dddfe2;
+            position: fixed;
+            top: 60px;
+            bottom: 0;
+            right: 0;
+            overflow-y: auto;
+        }
+        .right-sidebar .profile-summary {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .right-sidebar .profile-summary img {
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .right-sidebar .profile-summary .name {
+            font-weight: bold;
+        }
+        .right-sidebar .stats {
+            margin-bottom: 20px;
+        }
+        .right-sidebar .stats .stat {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #dddfe2;
+        }
+        .right-sidebar .stats .stat:last-child {
+            border-bottom: none;
+        }
+        .right-sidebar .stats .stat .label {
+            color: #606770;
+        }
+        .right-sidebar .stats .stat .value {
+            font-weight: bold;
+        }
+        .right-sidebar .promote {
+            display: flex;
+            align-items: center;
+            color: #1877f2;
+            cursor: pointer;
+        }
+        .right-sidebar .promote .fa {
+            margin-right: 5px;
+        }
+  </style>
+ </head>
+ <body>
+  <div class="header">
+   <div class="logo">
+    <img alt="Facebook Logo" height="40" src="https://storage.googleapis.com/a1aa/image/4xJZiIygTiLeSKXgTAEA7bJP51e4C1BXfFxbzevZlI6RQY3OB.jpg" width="40"/>
+   </div>
+   <div class="search-bar">
+    <i class="fa fa-search">
+    </i>
+    <input placeholder="Search Facebook" type="text"/>
+   </div>
+   <div class="icons">
+    <i class="fa fa-home icon">
+    </i>
+    <i class="fa fa-tv icon">
+    </i>
+    <i class="fa fa-store icon">
+    </i>
+    <i class="fa fa-users icon">
+    </i>
+    <i class="fa fa-bell icon">
+    </i>
+    <i class="fa fa-user-circle icon">
+    </i>
+   </div>
+  </div>
+  <div class="sidebar">
+   <div class="menu-item">
+    <img alt="Profile Picture" height="40" src="https://storage.googleapis.com/a1aa/image/DokABRIBl8qyHBGEaKVIexZq25I1qOdoqjActIJsmPeCE2tTA.jpg" width="40"/>
+    <span>
+     NIXY MINE
+    </span>
+   </div>
+   <div class="menu-item">
+    <i class="fa fa-chart-bar">
+    </i>
+    <span>
+     Pengelola Iklan
+    </span>
+   </div>
+   <div class="menu-item">
+    <i class="fa fa-bullhorn">
+    </i>
+    <span>
+     Pusat Iklan
+    </span>
+   </div>
+   <div class="menu-item">
+    <i class="fa fa-briefcase">
+    </i>
+    <span>
+     Meta Business Suite
+    </span>
+   </div>
+   <div class="menu-item">
+    <i class="fa fa-tachometer-alt">
+    </i>
+    <span>
+     Dasbor profesional
+    </span>
+   </div>
+   <div class="menu-item">
+    <i class="fa fa-newspaper">
+    </i>
+    <span>
+     Kabar
+    </span>
+   </div>
+   <div class="menu-item">
+    <i class="fa fa-users">
+    </i>
+    <span>
+     Grup
+    </span>
+   </div>
+   <div class="menu-item">
+    <i class="fa fa-video">
+    </i>
+    <span>
+     Video
+    </span>
+   </div>
+   <div class="menu-item">
+    <i class="fa fa-clock">
+    </i>
+    <span>
+     Kenangan
+    </span>
+   </div>
+   <div class="menu-item">
+    <i class="fa fa-bookmark">
+    </i>
+    <span>
+     Tersimpan
+    </span>
+   </div>
+   <div class="menu-item">
+    <i class="fa fa-flag">
+    </i>
+    <span>
+     Halaman
+    </span>
+   </div>
+   <div class="menu-item">
+    <i class="fa fa-film">
+    </i>
+    <span>
+     Reels
+    </span>
+   </div>
+  </div>
+  <div class="main-content">
+   <div class="status-update">
+    <img alt="Profile Picture" height="40" src="https://storage.googleapis.com/a1aa/image/DokABRIBl8qyHBGEaKVIexZq25I1qOdoqjActIJsmPeCE2tTA.jpg" width="40"/>
+    <input placeholder="Apa yang Anda pikirkan, NIXY MINE?" type="text"/>
+    <div class="actions">
+     <div class="action">
+      <i class="fa fa-video">
+      </i>
+      <span>
+       Video siaran langsung
+      </span>
+     </div>
+     <div class="action">
+      <i class="fa fa-camera">
+      </i>
+      <span>
+       Foto/video
+      </span>
+     </div>
+     <div class="action">
+      <i class="fa fa-film">
+      </i>
+      <span>
+       Reel
+      </span>
+     </div>
+    </div>
+   </div>
+   <div class="stories">
+    <div class="story">
+     <img alt="Story Image" height="200" src="https://storage.googleapis.com/a1aa/image/68TRNsk9aMIRLJuvWmw4ypYzrZTkhC9rYxftdTrKfviHE2tTA.jpg" width="120"/>
+     <img alt="Profile Picture" class="profile-pic" height="40" src="https://storage.googleapis.com/a1aa/image/DokABRIBl8qyHBGEaKVIexZq25I1qOdoqjActIJsmPeCE2tTA.jpg" width="40"/>
+     <div class="name">
+      NIXY MINE
+     </div>
+    </div>
+    <div class="story">
+     <img alt="Story Image" height="200" src="https://storage.googleapis.com/a1aa/image/68TRNsk9aMIRLJuvWmw4ypYzrZTkhC9rYxftdTrKfviHE2tTA.jpg" width="120"/>
+     <img alt="Profile Picture" class="profile-pic" height="40" src="https://storage.googleapis.com/a1aa/image/DokABRIBl8qyHBGEaKVIexZq25I1qOdoqjActIJsmPeCE2tTA.jpg" width="40"/>
+     <div class="name">
+      Sarip Hidayatuloh
+     </div>
+    </div>
+    <div class="story">
+     <img alt="Story Image" height="200" src="https://storage.googleapis.com/a1aa/image/68TRNsk9aMIRLJuvWmw4ypYzrZTkhC9rYxftdTrKfviHE2tTA.jpg" width="120"/>
+     <img alt="Profile Picture" class="profile-pic" height="40" src="https://storage.googleapis.com/a1aa/image/DokABRIBl8qyHBGEaKVIexZq25I1qOdoqjActIJsmPeCE2tTA.jpg" width="40"/>
+     <div class="name">
+      Hendy Salma
+     </div>
+    </div>
+   </div>
+   <div class="post">
+    <div class="post-header">
+     <img alt="Profile Picture" height="40" src="https://storage.googleapis.com/a1aa/image/DokABRIBl8qyHBGEaKVIexZq25I1qOdoqjActIJsmPeCE2tTA.jpg" width="40"/>
+     <div>
+      <span class="name">
+       Hendy Salma
+      </span>
+      <span class="time">
+       merasa bersemangat di Kota Bandung.
+      </span>
+      <div class="time">
+       5 jam · Bandung, Jawa Barat ·
+       <i class="fa fa-globe">
+       </i>
+      </div>
+     </div>
+    </div>
+    <div class="post-content">
+     <p>
+      Tetap semangat 💪
+     </p>
+     <img alt="Post Image" height="300" src="https://storage.googleapis.com/a1aa/image/yojfrJYK5gStMy6OTW2nLoSVgMSWUOARnfxkwbMvJueMIsbnA.jpg" width="500"/>
+    </div>
+   </div>
+  </div>
+  <div class="right-sidebar">
+   <div class="profile-summary">
+    <img alt="Profile Picture" height="40" src="https://storage.googleapis.com/a1aa/image/DokABRIBl8qyHBGEaKVIexZq25I1qOdoqjActIJsmPeCE2tTA.jpg" width="40"/>
+    <div class="name">
+     NIXY MINE
+    </div>
+   </div>
+   <div class="stats">
+    <div class="stat">
+     <span class="label">
+      Jangkauan Postingan
+     </span>
+     <span class="value">
+      61
+     </span>
+    </div>
+    <div class="stat">
+     <span class="label">
+      Interaksi Postingan
+     </span>
+     <span class="value">
+      10
+     </span>
+    </div>
+    <div class="stat">
+     <span class="label">
+      Suka Halaman Baru
+     </span>
+     <span class="value">
+      3
+     </span>
+    </div>
+   </div>
+   <div class="promote">
+    <i class="fa fa-bullhorn">
+    </i>
+    <span>
+     Buat promosi
+    </span>
+   </div>
+  </div>
+ </body>
+</html>
